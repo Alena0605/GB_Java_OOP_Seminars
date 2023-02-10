@@ -9,7 +9,7 @@ public class Sword extends Weapon {
 
     @Override
     public int damage() {
-        return new Random().nextInt(0, damagePoint);
+        return damagePoint;
     }
 
     @Override
