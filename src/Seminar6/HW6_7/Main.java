@@ -1,6 +1,6 @@
 package Seminar6.HW6_7;
 
-import Seminar6.HW6_7.Controllers.UserController;
+import Seminar6.HW6_7.Controllers.NoteController;
 import Seminar6.HW6_7.Exceptions.Validate;
 import Seminar6.HW6_7.Logging.LogIntoCSV;
 import Seminar6.HW6_7.Logging.Logger;
@@ -15,9 +15,9 @@ public class Main {
         FileOperations file = new FileOperationsImpl("Notes.csv");
         Repository repository = new RepositoryFile(file);
         Validate validate = new Validate();
-        UserController userController = new UserController(repository);
+        NoteController noteController = new NoteController(repository);
         Logger logger = new LogIntoCSV();
-        ViewNote viewNote = new ViewNote(userController, validate, logger);
+        ViewNote viewNote = new ViewNote(noteController, validate, logger);
         viewNote.run();
     }
 }

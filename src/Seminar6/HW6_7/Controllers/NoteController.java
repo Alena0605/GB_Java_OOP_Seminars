@@ -6,10 +6,10 @@ import Seminar6.HW6_7.Models.Repository;
 
 import java.util.List;
 
-public class UserController {
+public class NoteController {
     private final Repository repository;
 
-    public UserController(Repository repository) {
+    public NoteController(Repository repository) {
         this.repository = repository;
     }
 

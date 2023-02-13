@@ -1,6 +1,6 @@
 package Seminar6.HW6_7.Views;
 
-import Seminar6.HW6_7.Controllers.UserController;
+import Seminar6.HW6_7.Controllers.NoteController;
 import Seminar6.HW6_7.Exceptions.*;
 import Seminar6.HW6_7.Logging.Logger;
 import Seminar6.HW6_7.Models.Fields;
@@ -10,12 +10,12 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class ViewNote {
-    private final UserController userController;
+    private final NoteController noteController;
     private final Validate validate;
     private final Logger logger;
 
-    public ViewNote(UserController userController, Validate validate, Logger logger) {
-        this.userController = userController;
+    public ViewNote(NoteController noteController, Validate validate, Logger logger) {
+        this.noteController = noteController;
         this.validate = validate;
         this.logger = logger;
     }
@@ -62,19 +62,19 @@ public class ViewNote {
 
         String currentDate = String.format("%s", new Date());
 
-        userController.saveNote(new Note(currentDate, title, text));
+        noteController.saveNote(new Note(currentDate, title, text));
         logger.saveCSV("Create new note");
     }
 
     private void read() throws Exception {
         String id = prompt("Enter the ID of note: ");
         logger.saveCSV(String.format("Reading note '%s - %s'",
-                userController.readNote(id).getTitle(), userController.readNote(id).getDate()));
-        System.out.println(userController.readNote(id));
+                noteController.readNote(id).getTitle(), noteController.readNote(id).getDate()));
+        System.out.println(noteController.readNote(id));
     }
 
     private void list() {
-        for (Note note : userController.readAllNotes()) {
+        for (Note note : noteController.readAllNotes()) {
             System.out.println(note);
         }
         logger.saveCSV("Reading all notes");
@@ -104,11 +104,11 @@ public class ViewNote {
         String id = note.getId();
 
         String currentDate = String.format("%s", new Date());
-        userController.readNote(id).setDate(currentDate);
+        noteController.readNote(id).setDate(currentDate);
 
-        userController.changeNote(note, Fields.valueOf(field.toUpperCase()), param);
+        noteController.changeNote(note, Fields.valueOf(field.toUpperCase()), param);
         logger.saveCSV(String.format("Change note '%s - %s'",
-                userController.readNote(id).getTitle(), userController.readNote(id).getDate()));
+                noteController.readNote(id).getTitle(), noteController.readNote(id).getDate()));
     }
 
     private void delete() throws Exception {
@@ -118,11 +118,11 @@ public class ViewNote {
 
         String result = prompt("Press enter to delete (enter any button to refuse): ");
         if (result.equals("")) {
-            userController.removeNote(note);
+            noteController.removeNote(note);
 
             String id = note.getId();
             logger.saveCSV(String.format("Delete note '%s - %s'",
-                    userController.readNote(id).getTitle(), userController.readNote(id).getDate()));
+                    noteController.readNote(id).getTitle(), noteController.readNote(id).getDate()));
         }
     }
 
@@ -152,7 +152,7 @@ public class ViewNote {
 
     private Note checkNote() throws Exception {
         String id = prompt("Enter the ID of note: ");
-        return userController.readNote(id);
+        return noteController.readNote(id);
     }
 
     public String prompt(String message) {
